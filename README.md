@@ -9,6 +9,7 @@ Modifier le fichier .env de la racine du projet ligne 28 (root:root => identifia
 Tapez ces deux ligne de commande:
   - php bin/console doctrine:database:create
   - php bin/console doctrine:migrations:migrate
+
 Afin de créer la base de donnée et ces tables.
 
 Puis lancer le serveur avec: symfony server:start

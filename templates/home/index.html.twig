@@ -1,0 +1,70 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}My Tasks | MyBestPro{% endblock %}
+
+{% block body %}
+
+<div class="jumbotron p-0 pt-4">
+    <div class="container">
+        {{ form_start(form) }}
+        <div class="form-row">
+            <div class="col">
+                <label for="search">Filtrer par statut</label>
+            </div>
+            <div class="col">
+                {{ form_row(form.status) }}
+            </div>
+            <div class="col">
+                <button class="btn btn-outline-info btn-sm">Recherche</button>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>
+<div class="container mt-4">
+    <h1 class="row justify-content-center">Tâches</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr class="table-dark">
+            <th>Titre</th>
+            <th>Déscription</th>
+            <th>Statut</th>
+            <th>Création</th>
+            <th>Modification</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for task in tasks %}
+            <tr class="{% if task.status == 'terminée' %}table-success{% elseif task.status == 'en cours' %}table-warning{% endif %}">
+                <td>{{ task.title }}</td>
+                <td>{{ task.description }}</td>
+                <td>{{ task.status }}</td>
+                <td>{{ task.createdAt ? task.createdAt|date('d/m/Y à H:i') : '' }}</td>
+                <td> {% if task.createdAt == task.updatedAt %}
+                        Pas encore modifier
+                    {% else %}
+                        {{ task.updatedAt ? task.updatedAt|date('d/m/Y à H:i') : '' }}</td>
+                    {% endif %}
+                <td>
+                    <a class="btn btn-outline-primary" href="{{ path('tasks_edit', {'id': task.id}) }}">Modifier</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="7">Aucune tache trouvé</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="row justify-content-end">
+        <a class="btn btn-primary mr-5" href="{{ path('tasks_new') }}">Create new</a>
+    </div>
+
+    <div class="pagination row justify-content-center">
+        {{ knp_pagination_render(tasks) }}
+    </div>
+</div>
+
+{% endblock %}

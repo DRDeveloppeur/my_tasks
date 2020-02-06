@@ -1,0 +1,12 @@
+{{ form_start(form) }}
+    <fieldset class="container">
+        <div class="row">
+            <div class="col-6">{{ form_row(form.title) }}</div>
+            <div class="col-6">{{ form_row(form.status) }}</div>
+        </div>
+        {{ form_widget(form) }}
+        <div class="row justify-content-end">
+            <button class="btn btn-primary mr-5 mt-5">{{ button_label|default('Enregistrer') }}</button>
+        </div>
+    </fieldset>
+{{ form_end(form) }}

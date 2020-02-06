@@ -1,0 +1,5 @@
+<form class="row justify-content-end" method="post" action="{{ path('tasks_delete', {'id': task.id}) }}" onsubmit="return confirm('Êtes-vous sûr de vouloir supprimer cette tache ?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ task.id) }}">
+    <button class="btn btn-danger">Supprimer</button>
+</form>
